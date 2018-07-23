@@ -1,0 +1,131 @@
+<div class="background-video">
+  <iframe frameborder="0" height="100%" width="100%" src="https://www.youtube.com/embed/XUaMl28-Jdk?autoplay=1&controls=0&showinfo=0&autohide=1&start=7&loop=1&rel=0&loop=1&playlist=XUaMl28-Jdk">
+  </iframe>
+</div>
+
+<div class="container center" data-ng-if="!userLoggedIn">
+  <h1 class="header center teal-text text-lighten-2">Добро пожаловать!</h1>
+  <h5 class="header col s12 light white-text center">первое в мире кафе с дронами</h5>
+</div>
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large red">
+    <i class="large material-icons">apps</i>
+  </a>
+  <ul>
+    <li>
+      <a id="btnOrders" class="btn-floating red" title="Показать заказы" data-ng-if="userLoggedIn" data-ng-click="showOrders(user)">
+        <i class="material-icons">insert_chart</i>
+      </a>
+    </li>
+    <li>
+      <a id="btnMenu" class="btn-floating green" title="Открыть меню" data-ng-if="userLoggedIn" data-ng-click="showDishes()">
+        <i class="material-icons">library_books</i>
+      </a>
+    </li>
+    <li>
+      <a id="btnLogin" class="btn-floating blue" title="Войти в кафе" data-ng-if="!userLoggedIn" data-ng-click="openLoginPopup()">
+        <i class="material-icons">directions_run</i>
+      </a>
+    </li>
+    <li>
+      <a id="btnMenu" class="btn-floating blue" title="Кухня" data-ng-if="userLoggedIn" href="/#!/kitchen">
+        <i class="material-icons">restaurant</i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="container" data-ng-if="userLoggedIn">
+  <div class="row white" data-ng-if="!dishesDisplayed">
+    <div class="col s12">
+      <h3>Ваши заказы</h3>
+      <ul class="collection">
+        <li class="collection-item" data-ng-repeat="dish in userOrderedDishes">
+          {{dish.dishName}}
+          <span class="secondary-content">{{dish.status}}</span>
+          <div class="" data-ng-if="dish.status == 'In trouble'">
+            <button class="waves-effect waves-light btn green" data-ng-click="orderAgain(dish)" title="Повторить заказ">
+              <i class="large material-icons">replay</i>
+            </button>
+            <button class="waves-effect waves-light btn red" data-ng-click="cancelOrder(dish, $index)" title="Отменить заказ">
+              <i class="large material-icons">delete</i>
+            </button>
+          </div>
+        </li>
+      </ul>
+      <!-- <button class="waves-effect waves-light btn" data-ng-click="showDishes()">Открыть меню</button> -->
+    </div>
+  </div>
+
+  <div class="row" data-ng-if="dishesDisplayed">
+    <div class="col s12 white">
+      <div class="col s6">
+        <h5>Здравствуй </h5>{{ user.name }}
+      </div>
+      <div class="col s6">
+        <p>{{ user.balance }} галактических кредитов</p>
+        <button class="waves-effect waves-light btn" data-ng-click="addFunds()">Пополнить кошелек</button>
+        <p></p>
+      </div>
+    </div>
+    <h5>Меню</h5>
+    <div class="row">
+      <div class="col s12 m6 l4" data-ng-repeat="dish in dishes">
+        <div class="card small">
+          <div class="card-image">
+            <img class="activator" data-ng-src="{{dish.image}}" alt="{{dish.title}}" title="Нажать для просмотра состава блюда">
+            <span class="card-title gray-text">{{dish.title}}</span>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Ингредиенты:
+              <i class="material-icons right">close</i>
+            </span>
+            <p>{{makeIngredientsList(dish.ingredients)}}</p>
+          </div>
+          <div class="card-content">
+            <p>
+              <strong>Популярность:</strong> {{dish.rating}}</p>
+            <p>
+              <strong>Цена:</strong> {{dish.price}} гк</p>
+            <button class="waves-effect waves-light btn" data-ng-if="dish.price <= user.balance" data-ng-click="addDishToOrder(dish._id, dish.title, dish.price)">
+              <i class="large material-icons">shopping_cart</i>
+            </button>
+            <div class="add-message" data-ng-if="dish.price > user.balance">Пополните на
+              <span class="red-text">{{dish.price - user.balance}} гк</span> ваш баланс</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="loginPopup" class="modal login-popup">
+  <div class="modal-content">
+    <i class="material-icons right modal-close" title="Close">
+      <i class="material-icons">close</i>
+    </i>
+    <h5>Авторизация</h5>
+
+    <form name="loginForm" class="col s12" novalidate>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="user_name" type="text" class="validate" data-ng-model="newUser.name" required>
+          <label for="first_name">Ваше имя</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="user_email" type="email" class="validate" data-ng-model="newUser.email" required>
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <button type="submit" class="waves-effect waves-light btn right" data-ng-click="logIn(newUser)" data-ng-disabled="loginForm.$invalid">Войти</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

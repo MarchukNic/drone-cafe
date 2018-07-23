@@ -1,0 +1,17 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.background-video {
+  position: fixed; 
+  z-index: -99; 
+  width: 100vw; 
+  height: 100vh; 
+  /* opacity: 0.5 */
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru" data-ng-app="DroneCafeApp">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Кафе с дронами</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="./assets/bower_components/materialize/dist/css/materialize.min.css" />
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <script src="./assets/bower_components/angular/angular.min.js"></script>
+  <script src="./assets/bower_components/angular-route/angular-route.min.js"></script>
+  <script src="./assets/bower_components/angular-resource/angular-resource.min.js"></script>
+  <script src="./assets/bower_components/restangular/dist/restangular.min.js"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo center">Кафе с дронами</a>
+    </div>
+  </nav>
+
+  <main>
+    <ng-view></ng-view>
+  </main>
+
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container">
+        &copy; 2018 Николай Марчук
+      </div>
+    </div>
+  </footer>
+
+  <script src="./assets/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="./assets/bower_components/materialize/dist/js/materialize.min.js"></script>
+  <script src="./assets/bower_components/socket.io-client/dist/socket.io.min.js"></script>
+  <script src="./src/DroneCafeApp.js"></script>
+  <script src="./src/User/UserCtrl.js"></script>
+  <script src="./src/User/UserService.js"></script>
+  <script src="./src/Kitchen/KitchenCtrl.js"></script>
+  <script src="./src/Kitchen/KitchenService.js"></script>
+</body>
+
+</html>
